@@ -5,6 +5,8 @@
  */
 package fr.utbm.projetlo54.app;
 
+import fr.utbm.projetlo54.repository.JdbcformationDAO;
+
 /**
  *
  * @author java
@@ -12,6 +14,7 @@ package fr.utbm.projetlo54.app;
 public class App {
     
     public static void main(String[] arg){
-        
+        JdbcformationDAO jdbc = new JdbcformationDAO();
+        jdbc.connect();
     }
 }
