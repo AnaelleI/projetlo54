@@ -37,7 +37,7 @@ public class Client {
      * @return the Id
      */
     public int getId() {
-        return Id;
+        return this.Id;
     }
 
     /**
@@ -51,7 +51,7 @@ public class Client {
      * @return the lastName
      */
     public String getLastName() {
-        return lastName;
+        return this.lastName;
     }
 
     /**
@@ -65,7 +65,7 @@ public class Client {
      * @return the firstName
      */
     public String getFirstName() {
-        return firstName;
+        return this.firstName;
     }
 
     /**
@@ -79,7 +79,7 @@ public class Client {
      * @return the address
      */
     public long getAddress() {
-        return address;
+        return this.address;
     }
 
     /**
@@ -93,7 +93,7 @@ public class Client {
      * @return the phone
      */
     public int getPhone() {
-        return phone;
+        return this.phone;
     }
 
     /**
@@ -107,7 +107,7 @@ public class Client {
      * @return the email
      */
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     /**
@@ -121,7 +121,7 @@ public class Client {
      * @return the sessionID
      */
     public String getSessionID() {
-        return sessionID;
+        return this.sessionID;
     }
 
     /**

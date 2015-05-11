@@ -27,7 +27,7 @@ public class Location {
      * @return the Id
      */
     public int getId() {
-        return Id;
+        return this.Id;
     }
 
     /**
@@ -41,7 +41,7 @@ public class Location {
      * @return the city
      */
     public String getCity() {
-        return city;
+        return this.city;
     }
 
     /**

@@ -27,7 +27,7 @@ public class Course {
      * @return the code
      */
     public int getCode() {
-        return code;
+        return this.code;
     }
 
     /**
@@ -41,7 +41,7 @@ public class Course {
      * @return the title
      */
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     /**

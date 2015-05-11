@@ -35,7 +35,7 @@ public class CourseSession {
      * @return the Id
      */
     public int getId() {
-        return Id;
+        return this.Id;
     }
 
     /**
@@ -49,7 +49,7 @@ public class CourseSession {
      * @return the startDate
      */
     public Date getStartDate() {
-        return startDate;
+        return this.startDate;
     }
 
     /**
@@ -63,7 +63,7 @@ public class CourseSession {
      * @return the endDate
      */
     public Date getEndDate() {
-        return endDate;
+        return this.endDate;
     }
 
     /**
@@ -77,7 +77,7 @@ public class CourseSession {
      * @return the courseCode
      */
     public int getCourseCode() {
-        return courseCode;
+        return this.courseCode;
     }
 
     /**
@@ -91,7 +91,7 @@ public class CourseSession {
      * @return the location
      */
     public int getLocation() {
-        return location;
+        return this.location;
     }
 
     /**
