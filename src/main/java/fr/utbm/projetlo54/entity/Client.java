@@ -131,4 +131,12 @@ public class Client {
         this.sessionID = sessionID;
     }
     
+    @Override
+    public String toString(){
+        return "\nLast Name : "+this.lastName+
+    "\nFirst Name : "+this.firstName+
+    "\nAddress : "+this.address+
+    "\nPhone :"+this.phone+
+    "\nMail : "+this.email;
+    }
 }

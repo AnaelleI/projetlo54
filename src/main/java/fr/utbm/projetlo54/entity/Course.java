@@ -51,6 +51,10 @@ public class Course {
         this.title = title;
     }
     
-    
+    @Override
+    public String toString(){
+        return "\nCode : "+this.code+
+                "\nLocation : "+this.title;
+    }
     
 }

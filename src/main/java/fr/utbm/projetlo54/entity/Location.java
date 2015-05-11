@@ -50,4 +50,9 @@ public class Location {
     public void setCity(String city) {
         this.city = city;
     }
+    
+    @Override
+    public String toString(){
+        return "\nCity : "+this.city;
+    }
 }
