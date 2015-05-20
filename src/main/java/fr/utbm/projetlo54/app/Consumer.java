@@ -17,11 +17,11 @@ private static String url = ActiveMQConnection.DEFAULT_BROKER_URL;
  
 //SUbject is the name of the topic
 private static String subject = "coucou";
-
+private static String endWhile = "no";
 
 public static void main(String[] args) throws JMSException {
     
-    while(true){
+    
         BasicConfigurator.configure();
 
         // Creatng the connection
@@ -37,14 +37,20 @@ public static void main(String[] args) throws JMSException {
         Destination destination = session.createQueue(subject);
         // Waiting for the message
         MessageConsumer consumer = session.createConsumer(destination);
+        while(endWhile.equals("no")){
         Message message = consumer.receive();
         if (message instanceof TextMessage) {
 
             TextMessage textMessage = (TextMessage) message;
             System.out.println("Received message '" + textMessage.getText()+ "'");
+            if(textMessage.getText().equals("close connection")){
+                endWhile="true";
+            }
+        }
         }
         connection.close();
-        }
+        
+        
     }
 }
 
