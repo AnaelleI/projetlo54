@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.utbm.projetlo54.app;
+package fr.utbm.projetlo54.entity;
 
 import javax.jms.*;
 import javax.naming.InitialContext;
@@ -57,8 +57,8 @@ public class Producer {
     
  }
     //Exemple of use : send "hello" to the topic "coucou"
-    public static void main(String[] args) throws JMSException, NamingException{
-        Producer p = new Producer("coucou");
-        p.sendToTopic("hello");
-    }
+    //public static void main(String[] args) throws JMSException, NamingException{
+    //    Producer p = new Producer("coucou");
+    //   p.sendToTopic("hello");
+    //}
 }

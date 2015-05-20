@@ -38,7 +38,7 @@ public static void main(String[] args) throws NamingException,JMSException {
         // Creating session for seding messages
         Session session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
         // Creating the topic if not existing
-        Topic topic = session.createTopic("Coucou"); 
+        Topic topic = session.createTopic("TPLO54"); 
         //Creation of a durable subscriber
         TopicSubscriber consumer = session.createDurableSubscriber(topic,"AppliJava");  
         // Waiting for the message
