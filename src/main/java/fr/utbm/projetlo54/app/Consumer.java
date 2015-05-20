@@ -37,6 +37,7 @@ public static void main(String[] args) throws JMSException {
         Destination destination = session.createQueue(subject);
         // Waiting for the message
         MessageConsumer consumer = session.createConsumer(destination);
+        endWhile="no";
         while(endWhile.equals("no")){
         Message message = consumer.receive();
         if (message instanceof TextMessage) {
