@@ -3,15 +3,16 @@
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
     
-<hibernate-mapping package="fr.dvdstore.core.entity">
+<hibernate-mapping package="fr.utbm.projetlo54.entity">
     <class name="Client" table="CLIENT">
-        <id name="Id" column="ID">
+        <id name="Id" column="ID" type="integer">
             <generator class="identity"/>
         </id>
-        <property name="lastName" column="LASTNAME" not-null="true"/>
-        <property name="firstName" column="FIRSTNAME" not-null="true"/>
-        <property name="address" column="ADDRESS" not-null="true"/>
-        <property name="phone" column="PHONE" not-null="true"/>
-        <property name="email" column="EMAIL" not-null="true"/>
+        <property name="lastName" column="LASTNAME" type="string" not-null="true"/>
+        <property name="firstName" column="FIRSTNAME" type="string" not-null="true"/>
+        <property name="address" column="ADDRESS" type="string" not-null="true"/>
+        <property name="phone" column="PHONE" type="string" not-null="true"/>
+        <property name="email" column="EMAIL" type="string" not-null="true"/>
+        <!-- TODO: course session mapping -->
     </class>
 </hibernate-mapping>

@@ -3,13 +3,12 @@
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
     
-<hibernate-mapping package="fr.dvdstore.core.entity">
-    <class name="CourseSession" table="COURSE_SESSION">
-        <id name="Id" column="ID">
+<hibernate-mapping package="fr.utbm.projetlo54.entity">
+    <class name="Location" table="LOCATION">
+        <id name="Id" column="ID" type="integer">
             <generator class="identity"/>
         </id>
-        <property name="startDate" column="STARTDATE" not-null="true"/>
-        <property name="endDate" column="ENDDATE" not-null="true"/>
+        <property name="city" column="CITY" type="string" not-null="true"/>
     </class>
 </hibernate-mapping>
 

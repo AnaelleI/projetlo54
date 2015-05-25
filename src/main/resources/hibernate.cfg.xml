@@ -19,6 +19,9 @@
     <!-- Drop and re-create the database schema on startup -->
     <property name="hbm2ddl.auto">validate</property>
     <!-- Object Mapping files -->
-    <!-- <mapping resource="fr/dvdstore/core/entity/User.hbm.xml"/> -->
+    <mapping resource="fr/utbm/projetlo54/entity/Client.hbm.xml"/>
+    <mapping resource="fr/utbm/projetlo54/entity/Course.hbm.xml"/>
+    <mapping resource="fr/utbm/projetlo54/entity/CourseSession.hbm.xml"/>
+    <mapping resource="fr/utbm/projetlo54/entity/Location.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

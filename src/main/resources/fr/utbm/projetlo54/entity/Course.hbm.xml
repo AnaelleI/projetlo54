@@ -3,11 +3,12 @@
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
     
-<hibernate-mapping package="fr.dvdstore.core.entity">
+<hibernate-mapping package="fr.utbm.projetlo54.entity">
     <class name="Course" table="COURSE">
-        <id name="Code" column="CODE">
-            <generator class="identity"/>
+        <id name="Code" column="CODE" type="string">
+            <generator class="assigned"/>
         </id>
-        <property name="title" column="TITLE" not-null="true"/>
+        <property name="title" column="TITLE" type="string" not-null="true"/>
+        <!-- TODO: courseSessions mapping -->
     </class>
 </hibernate-mapping>

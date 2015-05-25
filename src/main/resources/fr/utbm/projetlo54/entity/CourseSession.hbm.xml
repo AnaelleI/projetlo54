@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping package="fr.utbm.projetlo54.entity">
+    <class name="CourseSession" table="COURSE_SESSION">
+        <id name="Id" column="ID" type="integer">
+            <generator class="identity"/>
+        </id>
+        <property name="startDate" column="STARTDATE" type="date" not-null="true"/>
+        <property name="endDate" column="ENDDATE" type="date" not-null="true"/>
+        <!-- TODO: course mapping -->
+        <!-- TODO: location mapping -->
+    </class>
+</hibernate-mapping>
+

@@ -5,20 +5,23 @@
  */
 package fr.utbm.projetlo54.entity;
 
+import java.util.List;
+
 /**
  *
  * @author Anaëlle Isola
  */
 public class Course {
     
-    private int code;
+    private String code;
     private String title;
+    private List<CourseSession> courseSessions;
     
     public void Course(){
         
     }
     
-    public void Course(int code, String title){
+    public void Course(String code, String title){
         this.setCode(code);
         this.setTitle(title);
     }
@@ -26,14 +29,14 @@ public class Course {
     /**
      * @return the code
      */
-    public int getCode() {
+    public String getCode() {
         return this.code;
     }
 
     /**
      * @param code the code to set
      */
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -50,6 +53,23 @@ public class Course {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    /**
+     * @return the list of course sessions
+     */
+    public List<CourseSession> getCourseSessions() 
+    {
+        return courseSessions;
+    }
+    
+    /**
+     * @param courseSessions the list of course sessions to set
+     */
+    public void setCourseSessions(List<CourseSession> courseSessions) 
+    {
+        this.courseSessions = courseSessions;
+    }
+    
     
     @Override
     public String toString(){

@@ -105,7 +105,7 @@ public class CourseSession {
     @Override
     public String toString(){
     return "\nStart Date : "+this.startDate+
-    "\nENd Date : "+this.endDate+
+    "\nEnd Date : "+this.endDate+
     "\nCode : "+this.courseCode+
     "\nLocation : "+this.location;
     }
