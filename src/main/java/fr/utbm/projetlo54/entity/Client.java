@@ -14,8 +14,8 @@ public class Client {
     private int Id;
     private String lastName;
     private String firstName;
-    private long address;
-    private int phone;
+    private String address;
+    private String phone;
     private String email;
     private String sessionID;
     
@@ -23,7 +23,7 @@ public class Client {
         
    }
     
-    public void Client(int id, String lastname, String firstname, long address, int phone, String email, String sessionId){
+    public void Client(int id, String lastname, String firstname, String address, String phone, String email, String sessionId){
         this.setId(id);
         this.setLastName(lastname);
         this.setFirstName(firstname);
@@ -78,28 +78,32 @@ public class Client {
     /**
      * @return the address
      */
-    public long getAddress() {
+    public String getAddress() 
+    {
         return this.address;
     }
 
     /**
      * @param address the address to set
      */
-    public void setAddress(long address) {
+    public void setAddress(String address) 
+    {
         this.address = address;
     }
 
     /**
      * @return the phone
      */
-    public int getPhone() {
+    public String getPhone() 
+    {
         return this.phone;
     }
 
     /**
      * @param phone the phone to set
      */
-    public void setPhone(int phone) {
+    public void setPhone(String phone) 
+    {
         this.phone = phone;
     }
 
