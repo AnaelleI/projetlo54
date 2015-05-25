@@ -12,4 +12,5 @@ package fr.utbm.projetlo54.service;
 public class ClientService 
 {
     // TODO: Client getClientByIdWithCourseSession(int cid)
+    // TODO: int registerClient(Client c)
 }

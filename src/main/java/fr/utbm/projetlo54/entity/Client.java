@@ -17,13 +17,13 @@ public class Client {
     private String address;
     private String phone;
     private String email;
-    private String sessionID;
+    private int sessionID;
     
     public void Client(){
         
    }
     
-    public void Client(int id, String lastname, String firstname, String address, String phone, String email, String sessionId){
+    public void Client(int id, String lastname, String firstname, String address, String phone, String email, int sessionId){
         this.setId(id);
         this.setLastName(lastname);
         this.setFirstName(firstname);
@@ -124,14 +124,16 @@ public class Client {
     /**
      * @return the sessionID
      */
-    public String getSessionID() {
+    public int getSessionID() 
+    {
         return this.sessionID;
     }
 
     /**
      * @param sessionID the sessionID to set
      */
-    public void setSessionID(String sessionID) {
+    public void setSessionID(int sessionID) 
+    {
         this.sessionID = sessionID;
     }
     
