@@ -223,5 +223,53 @@ public class HibernateCourseSessionDAO
         }
     }
     
-    // TODO: CourseSession findCourseSessionByIdWithCourseAndLocation(int csid)
+    /**
+     * find the courseSession with the specified course and location in parameters
+     * @param course the course's id requested
+     * @param location the location's id requested
+     * @return a list of CourseSession
+     */
+    public List<CourseSession> findCourseSessionByCourseAndLocation(String course, int location){
+        Session session;
+        List<CourseSession> courseSession = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            Query query = session.createQuery("from CourseSession where COURSE_CODE = ? and LOCATION_ID = ?");
+            query.setParameter(0, course);
+            query.setParameter(1, location);
+            courseSession = query.list();
+            session.getTransaction().commit();
+        }
+        catch(HibernateException e)
+        {
+           e.printStackTrace();
+            if(session.getTransaction() != null)
+            {
+                try
+                {
+                    session.getTransaction().rollback();
+                }
+                catch (HibernateException e2)
+                {
+                    e2.printStackTrace();
+                }
+            } 
+        }
+        finally{
+            if (session != null)
+            {
+                try
+                {
+                    session.close();
+                }
+                catch (Exception e)
+                {
+                    System.out.println(e);
+                }
+            }
+        }
+        
+        return courseSession;
+    }
 }

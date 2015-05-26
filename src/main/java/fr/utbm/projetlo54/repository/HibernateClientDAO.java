@@ -224,5 +224,49 @@ public class HibernateClientDAO
         }
     }
     
-    // TODO: Client findClientByIdWithCourseSession(int cid)
+    /**
+     * find the list of the client who are in the course session requested
+     * @param csId the id of the course
+     * @return the list of client who are in the course session requested
+     */
+    public List<Client> findClientdWithIdCourseSession(int csId){
+        Session session;
+        List<Client> clientList = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            Query query = session.createQuery("from Client where SESSION_ID = ?");
+            query.setParameter(0, csId);
+            clientList = query.list();
+            session.getTransaction().commit();
+        }
+        catch(HibernateException e){
+            e.printStackTrace();
+            if(session.getTransaction() != null)
+            {
+                try
+                {
+                    session.getTransaction().rollback();
+                }
+                catch (HibernateException e2)
+                {
+                    e2.printStackTrace();
+                }
+            }
+        }
+        finally{
+            if (session != null)
+            {
+                try
+                {
+                    session.close();
+                }
+                catch (Exception e)
+                {
+                    System.out.println(e);
+                }
+            }
+        }
+        return clientList;
+    }
 }
