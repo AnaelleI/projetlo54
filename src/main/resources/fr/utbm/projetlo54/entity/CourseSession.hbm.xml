@@ -10,8 +10,8 @@
         </id>
         <property name="startDate" column="STARTDATE" type="date" not-null="true"/>
         <property name="endDate" column="ENDDATE" type="date" not-null="true"/>
-        <!-- TODO: course mapping -->
-        <!-- TODO: location mapping -->
+        <many-to-one  name="courseCode" column="COURSE_CODE" not-null="true"/>
+        <many-to-one  name="location" column="LOCATION_ID" not-null="true"/>
     </class>
 </hibernate-mapping>
 

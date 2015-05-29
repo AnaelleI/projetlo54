@@ -13,6 +13,6 @@
         <property name="address" column="ADDRESS" type="string" not-null="true"/>
         <property name="phone" column="PHONE" type="string" not-null="true"/>
         <property name="email" column="EMAIL" type="string" not-null="true"/>
-        <!-- TODO: course session mapping -->
+        <many-to-one name="sessionID" column="SESSION_ID"/>
     </class>
 </hibernate-mapping>
