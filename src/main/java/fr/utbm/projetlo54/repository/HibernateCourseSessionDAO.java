@@ -8,6 +8,7 @@ package fr.utbm.projetlo54.repository;
 import fr.utbm.projetlo54.entity.CourseSession;
 import fr.utbm.projetlo54.util.HibernateUtil;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -271,5 +272,47 @@ public class HibernateCourseSessionDAO
         }
         
         return courseSession;
+    }
+    
+    /**
+     * get the course session loaded with the location and the course
+     * @param csid the id of course session
+     * @return the course session
+     */
+    public CourseSession findCourseSessionByIdWithLocationAndCourse(int csid){
+        CourseSession cs = null;
+        Session session;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            cs = (CourseSession) session.get(CourseSession.class, csid);
+            if(cs != null){
+                Hibernate.initialize(cs.getLocation());
+                Hibernate.initialize(cs.getCourseCode());
+            }
+            session.getTransaction().commit();
+        }
+        catch (HibernateException e){
+            e.printStackTrace();
+            if (session.getTransaction() != null){
+                try{
+                    session.getTransaction().rollback();
+                }
+                catch (HibernateException e2){
+                    e2.printStackTrace();
+                }
+            }
+        }    
+        finally{
+            if (session != null){
+                try{
+                    session.close();
+                }
+                catch (Exception e){
+                    System.out.println(e);
+                }
+            }
+        }
+        return cs;
     }
 }

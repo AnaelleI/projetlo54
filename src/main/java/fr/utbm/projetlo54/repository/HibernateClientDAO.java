@@ -8,6 +8,7 @@ package fr.utbm.projetlo54.repository;
 import fr.utbm.projetlo54.entity.Client;
 import fr.utbm.projetlo54.util.HibernateUtil;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -229,7 +230,7 @@ public class HibernateClientDAO
      * @param csId the id of the course
      * @return the list of client who are in the course session requested
      */
-    public List<Client> findClientdWithIdCourseSession(int csId){
+    public List<Client> findClientdByIdCourseSession(int csId){
         Session session;
         List<Client> clientList = null;
         session = HibernateUtil.getSessionFactory().openSession();
@@ -268,5 +269,41 @@ public class HibernateClientDAO
             }
         }
         return clientList;
+    }
+    
+    public Client findClientByIdWithCourseSession (int cid){
+        Client c = null;
+        Session session;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            c = (Client) session.get(Client.class, cid);
+            if(c != null){
+                Hibernate.initialize(c.getSessionID());
+            }
+            session.getTransaction().commit();
+        }
+        catch (HibernateException e){
+            e.printStackTrace();
+            if (session.getTransaction() != null){
+                try{
+                    session.getTransaction().rollback();
+                }
+                catch (HibernateException e2){
+                    e2.printStackTrace();
+                }
+            }
+        }    
+        finally{
+            if (session != null){
+                try{
+                    session.close();
+                }
+                catch (Exception e){
+                    System.out.println(e);
+                }
+            }
+        }
+        return c; 
     }
 }
