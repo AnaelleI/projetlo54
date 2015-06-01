@@ -5,26 +5,26 @@
  */
 package fr.utbm.projetlo54.app;
 
-import java.util.Properties;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.jms.*;
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.activemq.transport.nio.SelectorManager.Listener;
 import org.apache.log4j.BasicConfigurator;
 
 public class Consumer {
 
 // URL by default
-private static String url = ActiveMQConnection.DEFAULT_BROKER_URL;
+private static final String url = ActiveMQConnection.DEFAULT_BROKER_URL;
  
 //SUbject is the name of the topic
-private static String subject = "Coucou";
+private static final String subject = "TPLO54";
 private static String endWhile = "no";
 
-public static void main(String[] args) throws NamingException,JMSException {
+public static void main(String[] args) throws  IOException,NamingException,JMSException {
     
         
         BasicConfigurator.configure();
@@ -38,9 +38,19 @@ public static void main(String[] args) throws NamingException,JMSException {
         // Creating session for seding messages
         Session session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
         // Creating the topic if not existing
-        Topic topic = session.createTopic("TPLO54"); 
+        Topic topic = session.createTopic(subject); 
         //Creation of a durable subscriber
         TopicSubscriber consumer = session.createDurableSubscriber(topic,"AppliJava");  
+        //Check if the file already exists
+        //If not, we create one else we append to the existing one and insert new line
+        FileWriter logFile;
+        File log= new File("LogFile.txt");
+        if(!log.exists()){
+            logFile = new FileWriter("LogFile.txt");
+        }
+        else logFile = new FileWriter("LogFile.txt",true);
+        logFile.write(System.getProperty("line.separator"));
+        
         // Waiting for the message
 
         endWhile="no";
@@ -50,11 +60,15 @@ public static void main(String[] args) throws NamingException,JMSException {
 
             TextMessage textMessage = (TextMessage) message;
             System.out.println("Received message '" + textMessage.getText()+ "'");
+            //write the message and \n in the log file
+            logFile.write(textMessage.getText());
+            logFile.write(System.getProperty("line.separator"));
             if(textMessage.getText().equals("close connection")){
                 endWhile="true";
             }
         }
         }
+        logFile.close();
         connection.close();
         
         
