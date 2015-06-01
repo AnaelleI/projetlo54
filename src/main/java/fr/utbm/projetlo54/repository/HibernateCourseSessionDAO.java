@@ -288,7 +288,7 @@ public class HibernateCourseSessionDAO
             cs = (CourseSession) session.get(CourseSession.class, csid);
             if(cs != null){
                 Hibernate.initialize(cs.getLocation());
-                Hibernate.initialize(cs.getCourseCode());
+                Hibernate.initialize(cs.getCourse());
             }
             session.getTransaction().commit();
         }

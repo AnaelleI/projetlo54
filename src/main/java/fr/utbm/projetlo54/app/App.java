@@ -14,6 +14,7 @@ import fr.utbm.projetlo54.repository.HibernateClientDAO;
 import fr.utbm.projetlo54.repository.HibernateCourseDAO;
 import fr.utbm.projetlo54.repository.HibernateCourseSessionDAO;
 import fr.utbm.projetlo54.service.LocationService;
+import fr.utbm.projetlo54.entity.Course;
 import java.util.List;
 import javax.jms.JMSException;
 import javax.naming.NamingException;
@@ -48,6 +49,13 @@ public class App {
         {
             System.out.println(c.getId());
         }*/
+        HibernateCourseDAO hiber = new HibernateCourseDAO();
+        List<Object[]> courses = hiber.findAllCoursesWithNextCourseSessions();
+        for(Object[] ob : courses){
+            Course course = (Course) ob[0];
+            CourseSession courseSession = (CourseSession) ob[1];
+            System.out.println(course.getTitle() + " : " + courseSession.getCourse() + " : " + courseSession.getStartDate());
+        }
         
     }
 }

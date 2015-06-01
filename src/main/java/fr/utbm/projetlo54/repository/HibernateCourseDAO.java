@@ -6,7 +6,9 @@
 package fr.utbm.projetlo54.repository;
 
 import fr.utbm.projetlo54.entity.Course;
+import fr.utbm.projetlo54.entity.Location;
 import fr.utbm.projetlo54.util.HibernateUtil;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -222,21 +224,148 @@ public class HibernateCourseDAO
     // TODO: List<Object[]> findAllCoursesWithNextCourseSessions()
         // use an HQL join between Course and CourseSession
         // return only the course sessions starting after actual date
+    public List<Object[]> findAllCoursesWithNextCourseSessions(){
+        Session session;
+        List<Object[]> listCourse = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            Query query = session.createQuery("from Course cour join cour.courseSessions cs where cs.startDate > SYSDATE()");
+            listCourse = query.list();
+            session.getTransaction().commit();
+        }
+        catch(HibernateException e){
+            e.printStackTrace();
+            if(session.getTransaction() != null){
+                try{
+                    session.getTransaction().rollback();
+                }
+                catch(HibernateException e2){
+                    e2.printStackTrace();
+                }
+            }
+        }
+        finally{
+            if(session != null){
+                try{
+                    session.close();
+                }
+                catch(Exception e){
+                    System.out.println(e);
+                }
+            }
+        }
+        return listCourse;
+    }
+            
     
     // TODO: List<Object[]> findCoursesByKeywordWithNextCourseSessions(String keyword)
         // use an HQL join between Course and CourseSession
         // return only the courses containing the keyword in their title
         // return only the course sessions starting after actual date
+    public List<Object[]> findCoursesByKeyWordWithNewtCourseSessions(String keyword){
+        Session session;
+        List<Object[]> listCourses = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            Query query = session.createQuery("");
+            listCourses = query.list();
+            session.getTransaction().commit();
+        }
+        catch(HibernateException e){
+            e.printStackTrace();
+            if(session.getTransaction() != null){
+                try{
+                    session.getTransaction().rollback();
+                }
+                catch(HibernateException e2){
+                    e2.printStackTrace();
+                }
+            }
+        }
+        finally{
+            if(session != null){
+                try{
+                    session.close();
+                }
+                catch(Exception e){
+                    System.out.println(e);
+                }
+            }
+        }
+        return null;
+    }
         
     // TODO: List<Object[]> findCoursesByDateWithNextCourseSessions(Date d)
         // use an HQL join between Course and CourseSession
         // return only the course sessions with start date <= d <= end date
         // return only the course sessions starting after actual date (d will be >= actual date)
+    public List<Object[]> findCoursesByDateWithNextCourseSessions(Date d){
+        Session session;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            session.getTransaction().commit();
+        }
+        catch(HibernateException e){
+            e.printStackTrace();
+            if(session.getTransaction() != null){
+                try{
+                    session.getTransaction().rollback();
+                }
+                catch(HibernateException e2){
+                    e2.printStackTrace();
+                }
+            }
+        }
+        finally{
+            if(session != null){
+                try{
+                    session.close();
+                }
+                catch(Exception e){
+                    System.out.println(e);
+                }
+            }
+        }
+        return null;
+    }
     
     // TODO: List<Object[]> findCoursesByLocationWithNextCourseSessions(Location l)
         // use an HQL join between Course and CourseSession
         // return only the course sessions with location == l
         // return only the course sessions starting after actual date
+    public List<Object[]> findCoursesByLocationWithNextCourseSessions(Location l){
+        Session session;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            session.getTransaction().commit();
+        }
+        catch(HibernateException e){
+            e.printStackTrace();
+            if(session.getTransaction() != null){
+                try{
+                    session.getTransaction().rollback();
+                }
+                catch(HibernateException e2){
+                    e2.printStackTrace();
+                }
+            }
+        }
+        finally{
+            if(session != null){
+                try{
+                    session.close();
+                }
+                catch(Exception e){
+                    System.out.println(e);
+                }
+            }
+        }
+        return null;
+    }
     
     // TODO: List<Object[]> findCoursesByCritariaWithNextCourseSessions(String titleKeyword, Date d, Location l)
         // combine the 3 previous methods
@@ -244,5 +373,34 @@ public class HibernateCourseDAO
             // calling the previous methods and merging the results to keep only values appearing in all of them
             // using only one HQL request with all the criteria in it (faster and better)
         // a null parameter means criteria not used (ex : l == null means any location)
-            
+    public List<Object[]> findCoursesByCritariaWithNextCourseSessions(String titleKeyword, Date d, Location l){
+        Session session;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            session.getTransaction().commit();
+        }
+        catch(HibernateException e){
+            e.printStackTrace();
+            if(session.getTransaction() != null){
+                try{
+                    session.getTransaction().rollback();
+                }
+                catch(HibernateException e2){
+                    e2.printStackTrace();
+                }
+            }
+        }
+        finally{
+            if(session != null){
+                try{
+                    session.close();
+                }
+                catch(Exception e){
+                    System.out.println(e);
+                }
+            }
+        }
+        return null;
+    }       
 }
