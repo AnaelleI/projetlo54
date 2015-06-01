@@ -5,7 +5,7 @@
  */
 package fr.utbm.projetlo54.entity;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -15,7 +15,7 @@ public class Course {
     
     private String code;
     private String title;
-    private List<CourseSession> courseSessions;
+    private Set<CourseSession> courseSessions;
     
     public void Course(){
         
@@ -57,7 +57,7 @@ public class Course {
     /**
      * @return the list of course sessions
      */
-    public List<CourseSession> getCourseSessions() 
+    public Set<CourseSession> getCourseSessions() 
     {
         return courseSessions;
     }
@@ -65,7 +65,7 @@ public class Course {
     /**
      * @param courseSessions the list of course sessions to set
      */
-    public void setCourseSessions(List<CourseSession> courseSessions) 
+    public void setCourseSessions(Set<CourseSession> courseSessions) 
     {
         this.courseSessions = courseSessions;
     }

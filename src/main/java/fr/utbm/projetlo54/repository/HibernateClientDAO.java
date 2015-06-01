@@ -271,6 +271,11 @@ public class HibernateClientDAO
         return clientList;
     }
     
+    /**
+     * return a client loaded with his course sesion
+     * @param cid the id of client
+     * @return a client with his course session
+     */
     public Client findClientByIdWithCourseSession (int cid){
         Client c = null;
         Session session;
