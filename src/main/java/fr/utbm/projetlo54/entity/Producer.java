@@ -15,17 +15,11 @@ import org.apache.log4j.BasicConfigurator;
 
 public class Producer {
 
-    private static String envoi="";
-    private ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(ActiveMQConnection.DEFAULT_BROKER_URL);
-    private Connection connection = connectionFactory.createConnection();
-    private Session session;
-    private Destination destination;
+     private static String envoi="";
+    private String url = "tcp://localhost:61616";
     
-    
-    public Producer(String topic) throws JMSException, NamingException {
-        this.connection.start();
-        this.session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
-        this.destination = session.createQueue(topic);
+    public Producer(String topicName) throws JMSException, NamingException {
+
     }
      
     public void setEnvoi(String msg){
@@ -38,21 +32,30 @@ public class Producer {
     
     public void sendToTopic(String txt)throws JMSException, NamingException{
         
-    try {
+        
+         BasicConfigurator.configure();
 
-        MessageProducer producer = session.createProducer(destination);
+        // Creatng the connection
+        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
+        Connection connection = connectionFactory.createConnection();
+        //Set the ID of the subscriber
+        connection.setClientID("2");
+        connection.start();
+        // Creating session for seding messages
+        Session sessionPending = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
+        // Creating the topic if not existing
+        Topic topic = sessionPending.createTopic("TPLO54"); 
+        //Creation of a durable subscriber
 
-        TextMessage message = session.createTextMessage(txt);
+        MessageProducer producer = sessionPending.createProducer(topic);
+
+        TextMessage message = sessionPending.createTextMessage(txt);
 
         producer.send(message);
         System.out.println("Sent message '" + message.getText() + "'");
         if(message.getText().equals("close connection")){
             connection.close();
         }
-    }catch(Exception e){
-        e.printStackTrace();
-    }
-    
     
     
  }
@@ -62,3 +65,4 @@ public class Producer {
     //   p.sendToTopic("hello");
     //}
 }
+
