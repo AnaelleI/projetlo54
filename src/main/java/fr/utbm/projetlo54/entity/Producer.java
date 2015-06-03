@@ -6,17 +6,15 @@
 package fr.utbm.projetlo54.entity;
 
 import javax.jms.*;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import org.apache.log4j.BasicConfigurator;
 
 public class Producer {
 
-     private static String envoi="";
-    private String url = "tcp://localhost:61616";
+     private String envoi="";
+    private final String url = "tcp://localhost:61616";
     
     public Producer(String topicName) throws JMSException, NamingException {
 
@@ -33,13 +31,13 @@ public class Producer {
     public void sendToTopic(String txt)throws JMSException, NamingException{
         
         
-         BasicConfigurator.configure();
+        BasicConfigurator.configure();
 
         // Creatng the connection
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
         Connection connection = connectionFactory.createConnection();
         //Set the ID of the subscriber
-        connection.setClientID("2");
+        connection.setClientID("3");
         connection.start();
         // Creating session for seding messages
         Session sessionPending = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
