@@ -7,6 +7,8 @@ package fr.utbm.projetlo54.service;
 
 import fr.utbm.projetlo54.entity.Course;
 import fr.utbm.projetlo54.repository.HibernateCourseDAO;
+import fr.utbm.projetlo54.entity.Location;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,6 +24,28 @@ public class CourseService
         return courses;
     }
     
-    // TODO: List<Object[]> getAllCoursesWithNextCourseSessions()
-    // TODO: List<Object[]> getCoursesByCriteriaWithNextCourseSessions(String titleKeyword, Location l, Date d)
+    
+    public List<Object[]> getAllCoursesWithNewtCourseSessions(){
+        HibernateCourseDAO hcdao = new HibernateCourseDAO();
+        List<Object[]> courses = hcdao.findAllCoursesWithNextCourseSessions(); 
+        return courses;
+    }
+   
+    public List<Object[]> getCoursesByCrteriaWithNexCourseSessions(String titleKeyword, Location l, Date d){
+        HibernateCourseDAO hcdao = new HibernateCourseDAO();
+        List<Object[]> courses = hcdao.findCoursesByCritariaWithNextCourseSessions(titleKeyword, d, l); 
+        return courses;
+    }
+    
+    public List<Object[]> getCoursesByLocationWithNextCourseSessions(Location l){
+        HibernateCourseDAO hcdao = new HibernateCourseDAO();
+        List<Object[]> courses = hcdao.findCoursesByLocationWithNextCourseSessions(l); 
+        return courses;
+    }
+    
+    public List<Object[]> getCoursesByDateWithNextCourseSessions(Date d){
+        HibernateCourseDAO hcdao = new HibernateCourseDAO();
+        List<Object[]> courses = hcdao.findCoursesByDateWithNextCourseSessions(d); 
+        return courses;
+    }
 }

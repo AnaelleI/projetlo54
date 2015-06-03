@@ -81,7 +81,7 @@ public class CourseSession {
     }
 
     /**
-     * @param courseCode the courseCode to set
+     * @param course the courseCode to set
      */
     public void setCourse(Course course) {
         this.course = course;

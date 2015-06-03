@@ -15,6 +15,9 @@ import fr.utbm.projetlo54.repository.HibernateCourseDAO;
 import fr.utbm.projetlo54.repository.HibernateCourseSessionDAO;
 import fr.utbm.projetlo54.service.LocationService;
 import fr.utbm.projetlo54.entity.Course;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.jms.JMSException;
 import javax.naming.NamingException;
@@ -37,25 +40,25 @@ public class App {
         {
             System.out.println(l.getCity());
         }*/
-        /*HibernateClientDAO hibernate = new HibernateClientDAO();
-        List<Client> listcli = hibernate.findClientdWithIdCourseSession(2);
-        for(Client c : listcli)
-        {
-            System.out.println(c.getId());
-        }*/
-       /* HibernateCourseSessionDAO hibernate = new HibernateCourseSessionDAO();
-        List<CourseSession> listcli = hibernate.findCourseSessionByCourseAndLocation("GL51", 1);
-        for(CourseSession c : listcli)
-        {
-            System.out.println(c.getId());
-        }*/
-        HibernateCourseDAO hiber = new HibernateCourseDAO();
-        List<Object[]> courses = hiber.findAllCoursesWithNextCourseSessions();
+        /*HibernateCourseDAO hiber = new HibernateCourseDAO();
+        SimpleDateFormat dateformat3 = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = null;
+	try {
+	            date = dateformat3.parse("19/06/2015");
+        } 
+        catch(ParseException e){
+            System.out.println(e);
+        }
+        String keyword = "Processus";
+        Location l = new Location();
+        l.setCity("Belfort");
+        l.setId(1);        
+        List<Object[]> courses = hiber.findCoursesByCritariaWithNextCourseSessions(keyword, date, l);
         for(Object[] ob : courses){
             Course course = (Course) ob[0];
             CourseSession courseSession = (CourseSession) ob[1];
             System.out.println(course.getTitle() + " : " + courseSession.getCourse() + " : " + courseSession.getStartDate());
-        }
+        }*/
         
     }
 }

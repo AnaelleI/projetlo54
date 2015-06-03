@@ -11,7 +11,7 @@
         <property name="startDate" column="STARTDATE" type="date" not-null="true"/>
         <property name="endDate" column="ENDDATE" type="date" not-null="true"/>
         <many-to-one  name="course" column="COURSE_CODE" class="Course" not-null="true" insert="false" update="false"/>
-        <many-to-one  name="location" column="LOCATION_ID" class="Location" not-null="true"/>
+        <many-to-one  name="location" column="LOCATION_ID" class="Location" not-null="true" insert="false" update="false"/>
     </class>
 </hibernate-mapping>
 
