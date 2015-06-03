@@ -19,7 +19,7 @@ public class CourseSessionService
      * @param csid the id of the course session
      * @return a course session
      */
-    public CourseSession getCourseSesisonByIdWithLocation(int csid){
+    public CourseSession getCourseSessionByIdWithLocation(int csid){
         HibernateCourseSessionDAO hcsdao = new HibernateCourseSessionDAO();
         CourseSession cs = null;
         cs = hcsdao.findCourseSessionByIdWithLocationAndCourse(csid);

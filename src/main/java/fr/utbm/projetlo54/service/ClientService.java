@@ -29,7 +29,7 @@ public class ClientService
      * register a client c
      * @param c the client we want to register
      */
-    public void registerCLient(Client c){
+    public void registerClient(Client c){
         HibernateClientDAO hcdao = new HibernateClientDAO();
         hcdao.addClient(c);
     }

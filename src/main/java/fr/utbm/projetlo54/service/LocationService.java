@@ -21,8 +21,4 @@ public class LocationService
         List<Location> locations = hldao.findAllLocations();        
         return locations;
     }
-
-    public List<Location> getLocations() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
