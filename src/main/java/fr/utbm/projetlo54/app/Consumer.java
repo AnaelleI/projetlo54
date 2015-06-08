@@ -9,6 +9,7 @@ package fr.utbm.projetlo54.app;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Date;
 import javax.jms.*;
 import javax.naming.NamingException;
 import org.apache.activemq.ActiveMQConnection;
@@ -23,11 +24,16 @@ private static final String url = ActiveMQConnection.DEFAULT_BROKER_URL;
 //SUbject is the name of the topic
 private static final String subject = "TPLO54";
 private static String endWhile = "no";
+private static String path ="LogFile.txt";
+private static final String windowsPath = "C:/ProjetLO54";
+private static final String linuxPath = "~/ProjetLO54";
 
 public static void main(String[] args) throws  IOException,NamingException,JMSException {
     
         
         BasicConfigurator.configure();
+        //Get the os name
+        String osName = System.getProperty ( "os.name" );
 
         // Creatng the connection
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
@@ -42,15 +48,40 @@ public static void main(String[] args) throws  IOException,NamingException,JMSEx
         //Creation of a durable subscriber
         TopicSubscriber consumer = session.createDurableSubscriber(topic,"AppliJava");  
         //Check if the file already exists
-        //If not, we create one else we append to the existing one and insert new line
+        //If not, we create one else we append to the existing one and insert new line and date of the day
         FileWriter logFile;
-        File log= new File("LogFile.txt");
-        if(!log.exists()){
-            logFile = new FileWriter("LogFile.txt");
-        }
-        else logFile = new FileWriter("LogFile.txt",true);
-        logFile.write(System.getProperty("line.separator"));
         
+
+        if(osName.matches(".*Windows.*")){
+            //Create the directory in windows if not eists
+            if( !new File(windowsPath).exists()){
+                new File(windowsPath).mkdir();
+                System.out.println("Created "+ windowsPath+ " directory");
+            }
+            path= windowsPath+"/"+path;
+        }
+        
+        else{
+            if(osName.matches(".*Linux.*")){
+                //Create the directory in linux if it doesn't exist
+                if( !new File(linuxPath).mkdirs()){
+                    new File(linuxPath).mkdir();
+                    System.out.println("Created" + linuxPath+ " directory");
+                }
+                path= linuxPath+"/"+path;
+            }
+        }
+
+        File log= new File(path);
+        //Create the LogFile if doesn't exist
+        if(!log.exists()){
+            logFile = new FileWriter(path);
+            System.out.println("Created" + path +" file");
+        }
+        else logFile = new FileWriter(path,true);
+        logFile.write(System.getProperty("line.separator"));
+        logFile.write("------------- Begin listening : "+new Date().toString()+ " -------------");
+        logFile.write(System.getProperty("line.separator"));
         // Waiting for the message
 
         endWhile="no";
@@ -68,6 +99,7 @@ public static void main(String[] args) throws  IOException,NamingException,JMSEx
             }
         }
         }
+        logFile.write("------------- Stop listening  : "+new Date().toString()+ " -------------");
         logFile.close();
         connection.close();
         
