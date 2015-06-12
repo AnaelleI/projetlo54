@@ -26,7 +26,7 @@ private static final String subject = "TPLO54";
 private static String endWhile = "no";
 private static String path ="LogFile.txt";
 private static final String windowsPath = "C:/ProjetLO54";
-private static final String linuxPath = "~/ProjetLO54";
+private static final String linuxPath = "/home/java/Desktop/ProjetLO54";
 
 public static void main(String[] args) throws  IOException,NamingException,JMSException {
     
