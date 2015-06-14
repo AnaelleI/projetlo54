@@ -33,7 +33,7 @@ public class HibernateLocationDAO
         try
         {
             session.beginTransaction();
-            session.persist(l);
+            session.merge(l);
             session.getTransaction().commit();
             lid = l.getId();
         }
