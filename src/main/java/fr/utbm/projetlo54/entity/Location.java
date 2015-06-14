@@ -53,6 +53,6 @@ public class Location {
     
     @Override
     public String toString(){
-        return "\nCity : "+this.city;
+        return "\nCity : "+this.city+" ID : "+this.Id;
     }
 }
