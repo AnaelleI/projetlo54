@@ -32,17 +32,12 @@ public class HibernateCourseSessionDAO
         int csid = -1;
         try
         {
-            if(cs==null)
-            {
-            session.flush(); 
-            session.close();
-            }
-            else {
+            
             session.beginTransaction();
             session.merge(cs);
             session.getTransaction().commit();
             csid = cs.getId();
-            }
+            
         }
         catch (HibernateException e)
         {
