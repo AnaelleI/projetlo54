@@ -33,7 +33,7 @@ public class HibernateCourseSessionDAO
         try
         {
             session.beginTransaction();
-            session.persist(cs);
+            session.merge(cs);
             session.getTransaction().commit();
             csid = cs.getId();
         }
