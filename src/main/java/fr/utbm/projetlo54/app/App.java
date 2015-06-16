@@ -84,8 +84,8 @@ public class App {
         
         //Test add new courseSession
         CourseSession cs = new CourseSession();
-        cs.setCourse(cours.getCode());
-        cs.setLocation(l.getId());
+        cs.setCourse(cours);
+        cs.setLocation(l);
         Date d = new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2001");
         cs.setStartDate(d);
         d= new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2005");
