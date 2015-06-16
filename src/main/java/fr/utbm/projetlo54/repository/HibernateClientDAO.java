@@ -33,7 +33,7 @@ public class HibernateClientDAO
         try
         {
             session.beginTransaction();
-            session.persist(c);
+            session.merge(c);
             session.getTransaction().commit();
             ccode = c.getId();
         }
