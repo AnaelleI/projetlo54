@@ -16,14 +16,14 @@ public class CourseSession {
     private int Id;
     private Date startDate;
     private Date endDate;
-    private Course course;
-    private Location location;
+    private String course;
+    private int location;
     
     public void CourseSession(){
         
     }
     
-    public void CourseSession(int id, Date startDate, Date endDate, Course course, Location location){
+    public void CourseSession(int id, Date startDate, Date endDate, String course, int location){
         this.setId(id);
         this.setStartDate(startDate);
         this.setEndDate(endDate);
@@ -76,28 +76,28 @@ public class CourseSession {
     /**
      * @return the courseCode
      */
-    public Course getCourse() {
+    public String getCourse() {
         return this.course;
     }
 
     /**
      * @param course the courseCode to set
      */
-    public void setCourse(Course course) {
+    public void setCourse(String course) {
         this.course = course;
     }
 
     /**
      * @return the location
      */
-    public Location getLocation() {
+    public int getLocation() {
         return this.location;
     }
 
     /**
      * @param location the location to set
      */
-    public void setLocation(Location location) {
+    public void setLocation(int location) {
         this.location = location;
     }
     
