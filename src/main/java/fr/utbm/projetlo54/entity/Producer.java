@@ -13,11 +13,12 @@ import org.apache.log4j.BasicConfigurator;
 
 public class Producer {
 
-     private String envoi="";
+    private String envoi="";
     private final String url = "tcp://localhost:61616";
+    private String topicTarget ="";
     
     public Producer(String topicName) throws JMSException, NamingException {
-
+        this.topicTarget=topicName;
     }
      
     public void setEnvoi(String msg){
@@ -39,7 +40,7 @@ public class Producer {
         // Creating session for seding messages
         Session sessionPending = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
         // Creating the topic if not existing
-        Topic topic = sessionPending.createTopic("TPLO54"); 
+        Topic topic = sessionPending.createTopic(topicTarget); 
         //Creation of a durable subscriber
 
         MessageProducer producer = sessionPending.createProducer(topic);
@@ -52,10 +53,10 @@ public class Producer {
     
     
  }
-    //Exemple of use : send "hello" to the topic "coucou"
+    //Exemple of use : send "hello" to the topic "test"
     //public static void main(String[] args) throws JMSException, NamingException{
-    //    Producer p = new Producer("coucou");
-    //   p.sendToTopic("hello");
+    //    Producer p = new Producer("test");
+    //    p.sendToTopic("hello");
     //}
 }
 
