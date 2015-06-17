@@ -98,7 +98,7 @@ public static void main(String[] args) throws  IOException,NamingException,JMSEx
             if(textMessage.getText().equals("close connection")){
                 endWhile=true;
             }
-            //If we received remove subscrbers the we remove durable subscribers
+            //If we received remove subscribers the we remove durable subscribers
             else if(textMessage.getText().equals("remove subscribers")){
                 removeSub=true;
                 endWhile=true;
@@ -108,7 +108,7 @@ public static void main(String[] args) throws  IOException,NamingException,JMSEx
         logFile.write("------------- Stop listening  : "+new Date().toString()+ " -------------");
         logFile.close();
         
-        //If we received remove subscrbers the we remove durable subscribers
+        //If we received remove subscribers the we remove durable subscribers
         if(removeSub){
             consumer.close();
             session.unsubscribe("AppliJava");
