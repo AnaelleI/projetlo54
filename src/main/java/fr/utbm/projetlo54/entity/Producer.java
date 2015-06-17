@@ -29,10 +29,7 @@ public class Producer {
     }
     
     public void sendToTopic(String txt)throws JMSException, NamingException{
-        
-        
         BasicConfigurator.configure();
-
         // Creatng the connection
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
         Connection connection = connectionFactory.createConnection();
@@ -46,9 +43,7 @@ public class Producer {
         //Creation of a durable subscriber
 
         MessageProducer producer = sessionPending.createProducer(topic);
-
         TextMessage message = sessionPending.createTextMessage(txt);
-
         producer.send(message);
         System.out.println("Sent message '" + message.getText() + "'");
         if(message.getText().equals("close connection")){
