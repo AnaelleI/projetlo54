@@ -23,10 +23,11 @@ private static final String url = ActiveMQConnection.DEFAULT_BROKER_URL;
  
 //SUbject is the name of the topic
 private static final String subject = "TPLO54";
-private static String endWhile = "no";
+private static boolean endWhile = false;
 private static String path ="LogFile.txt";
 private static final String windowsPath = "C:/ProjetLO54";
 private static final String linuxPath = "/home/java/Desktop/ProjetLO54";
+private static boolean removeSub =false;
 
 public static void main(String[] args) throws  IOException,NamingException,JMSException {
     
@@ -84,8 +85,8 @@ public static void main(String[] args) throws  IOException,NamingException,JMSEx
         logFile.write(System.getProperty("line.separator"));
         // Waiting for the message
 
-        endWhile="no";
-        while(endWhile.equals("no")){
+        
+        while(!endWhile){
         Message message = consumer.receive();
         if (message instanceof TextMessage) {
 
@@ -95,13 +96,26 @@ public static void main(String[] args) throws  IOException,NamingException,JMSEx
             logFile.write(textMessage.getText());
             logFile.write(System.getProperty("line.separator"));
             if(textMessage.getText().equals("close connection")){
-                endWhile="true";
+                endWhile=true;
+            }
+            //If we received remove subscrbers the we remove durable subscribers
+            else if(textMessage.getText().equals("remove subscribers")){
+                removeSub=true;
+                endWhile=true;
             }
         }
         }
         logFile.write("------------- Stop listening  : "+new Date().toString()+ " -------------");
         logFile.close();
+        
+        //If we received remove subscrbers the we remove durable subscribers
+        if(removeSub){
+            consumer.close();
+            session.unsubscribe("AppliJava");
+            session.close();
+        }
         connection.close();
+        
         
         
     }
