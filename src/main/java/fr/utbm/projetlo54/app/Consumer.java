@@ -21,7 +21,7 @@ public class Consumer {
 // URL by default
 private static final String url = ActiveMQConnection.DEFAULT_BROKER_URL;
  
-//SUbject is the name of the topic
+//Subject is the name of the topic
 private static final String subject = "TPLO54";
 private static boolean endWhile = false;
 private static String path ="LogFile.txt";
@@ -35,7 +35,6 @@ public static void main(String[] args) throws  IOException,NamingException,JMSEx
         BasicConfigurator.configure();
         //Get the os name
         String osName = System.getProperty ( "os.name" );
-
         // Creatng the connection
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
         Connection connection = connectionFactory.createConnection();
@@ -95,13 +94,14 @@ public static void main(String[] args) throws  IOException,NamingException,JMSEx
             //write the message and \n in the log file
             logFile.write(textMessage.getText());
             logFile.write(System.getProperty("line.separator"));
-            if(textMessage.getText().equals("close connection")){
-                endWhile=true;
-            }
-            //If we received remove subscribers the we remove durable subscribers
-            else if(textMessage.getText().equals("remove subscribers")){
-                removeSub=true;
-                endWhile=true;
+            switch (textMessage.getText()) {
+                case "close connection":
+                    endWhile=true;
+                    break;
+                case "remove subscribers":
+                    removeSub=true;
+                    endWhile=true;
+                    break;
             }
         }
         }
