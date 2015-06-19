@@ -6,10 +6,12 @@
 package fr.utbm.projetlo54.entity;
 
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -25,6 +27,7 @@ public class CourseSession {
     private Location location;
     
     public void CourseSession(){
+              
         
     }
     
@@ -84,6 +87,7 @@ public class CourseSession {
     /**
      * @return the courseCode
      */
+    @ManyToOne(cascade=CascadeType.ALL)
     public Course getCourse() {
         return this.course;
     }
@@ -98,6 +102,7 @@ public class CourseSession {
     /**
      * @return the location
      */
+    @ManyToOne(cascade=CascadeType.ALL)
     public Location getLocation() {
         return this.location;
     }

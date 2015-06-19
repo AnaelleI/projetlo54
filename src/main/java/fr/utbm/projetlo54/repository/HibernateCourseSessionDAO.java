@@ -6,7 +6,11 @@
 package fr.utbm.projetlo54.repository;
 
 import fr.utbm.projetlo54.entity.CourseSession;
+import fr.utbm.projetlo54.entity.Location;
 import fr.utbm.projetlo54.util.HibernateUtil;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
@@ -27,13 +31,16 @@ public class HibernateCourseSessionDAO
      */
     public int addCourseSession(CourseSession cs)
     {
+
         Session session;
         session = HibernateUtil.getSessionFactory().openSession();
         int csid = -1;
         try
         {
             
-            session.beginTransaction();
+            session.beginTransaction(); 
+            System.out.println(cs.getLocation());
+            session.merge(cs.getLocation());
             session.merge(cs);
             session.getTransaction().commit();
             csid = cs.getId();
@@ -64,7 +71,7 @@ public class HibernateCourseSessionDAO
                 }
                 catch (Exception e)
                 {
-                    System.out.println(e);
+                    e.printStackTrace();
                 }
             }
         }

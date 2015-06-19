@@ -5,7 +5,7 @@
     
 <hibernate-mapping package="fr.utbm.projetlo54.entity">
     <class name="Location" table="LOCATION">
-        <id name="Id" column="ID" type="integer">
+        <id name="Id" column="ID" type="integer" >
             <generator class="identity"/>
         </id>
         <property name="city" column="CITY" type="string" not-null="true"/>
