@@ -25,13 +25,13 @@ public class CourseService
     }
     
     
-    public List<Object[]> getAllCoursesWithNewtCourseSessions(){
+    public List<Object[]> getAllCoursesWithNextCourseSessions(){
         HibernateCourseDAO hcdao = new HibernateCourseDAO();
         List<Object[]> courses = hcdao.findAllCoursesWithNextCourseSessions(); 
         return courses;
     }
    
-    public List<Object[]> getCoursesByCrteriaWithNexCourseSessions(String titleKeyword, Location l, Date d){
+    public List<Object[]> getCoursesByCriteriaWithNexCourseSessions(String titleKeyword, Location l, Date d){
         HibernateCourseDAO hcdao = new HibernateCourseDAO();
         List<Object[]> courses = hcdao.findCoursesByCritariaWithNextCourseSessions(titleKeyword, d, l); 
         return courses;

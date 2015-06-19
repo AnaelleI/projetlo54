@@ -6,7 +6,6 @@
 package fr.utbm.projetlo54.service;
 import fr.utbm.projetlo54.entity.Client;
 import fr.utbm.projetlo54.repository.HibernateClientDAO;
-import java.util.List;
 /**
  *
  * @author Justine Ventalon
