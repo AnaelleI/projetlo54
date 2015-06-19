@@ -86,7 +86,7 @@ public class HibernateCourseDAO
      * @param ccode the code of the course to find in the database
      * @return the course if found, null otherwise
      */
-    public Course findCourseByCode(int ccode)
+    public Course findCourseByCode(String ccode)
     {
         Course c = null;
         Session session;

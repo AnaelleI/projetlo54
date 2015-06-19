@@ -33,7 +33,7 @@ public class HibernateLocationDAO
         try
         {
             session.beginTransaction();
-            session.persist(l);
+            session.merge(l);
             session.getTransaction().commit();
             lid = l.getId();
         }
@@ -91,13 +91,13 @@ public class HibernateLocationDAO
      */
     public Location findLocationById(int lid)
     {
-        Location l = null;
+        Location l = new Location();
         Session session;
         session = HibernateUtil.getSessionFactory().openSession();
         try
         {
             session.beginTransaction();
-            l = (Location) session.get(CourseSession.class, lid);
+            l = (Location) session.get(Location.class, lid);
             session.getTransaction().commit();
         }
         catch (HibernateException e)
