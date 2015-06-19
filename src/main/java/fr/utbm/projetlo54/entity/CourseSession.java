@@ -6,11 +6,16 @@
 package fr.utbm.projetlo54.entity;
 
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author java
  */
+@Entity
 public class CourseSession {
     
     private int Id;
@@ -34,6 +39,9 @@ public class CourseSession {
     /**
      * @return the Id
      */
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    
     public int getId() {
         return this.Id;
     }
