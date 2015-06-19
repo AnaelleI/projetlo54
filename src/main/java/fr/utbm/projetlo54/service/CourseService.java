@@ -17,6 +17,11 @@ import java.util.List;
  */
 public class CourseService 
 {
+    /**
+     * Returns a list of all the courses.
+     * 
+     * @return the list of courses
+     */
     public List<Course> getAllCourses()
     {
         HibernateCourseDAO hcdao = new HibernateCourseDAO();
@@ -24,28 +29,18 @@ public class CourseService
         return courses;
     }
     
-    
-    public List<Object[]> getAllCoursesWithNextCourseSessions(){
+    public List<Object[]> getAllCoursesWithNextCourseSessions()
+    {
         HibernateCourseDAO hcdao = new HibernateCourseDAO();
         List<Object[]> courses = hcdao.findAllCoursesWithNextCourseSessions(); 
         return courses;
     }
    
-    public List<Object[]> getCoursesByCriteriaWithNexCourseSessions(String titleKeyword, Location l, Date d){
+    public List<Object[]> getCoursesByCriteriaWithNexCourseSessions(String titleKeyword, Location l, Date d)
+    {
         HibernateCourseDAO hcdao = new HibernateCourseDAO();
-        List<Object[]> courses = hcdao.findCoursesByCritariaWithNextCourseSessions(titleKeyword, d, l); 
-        return courses;
-    }
-    
-    public List<Object[]> getCoursesByLocationWithNextCourseSessions(Location l){
-        HibernateCourseDAO hcdao = new HibernateCourseDAO();
-        List<Object[]> courses = hcdao.findCoursesByLocationWithNextCourseSessions(l); 
-        return courses;
-    }
-    
-    public List<Object[]> getCoursesByDateWithNextCourseSessions(Date d){
-        HibernateCourseDAO hcdao = new HibernateCourseDAO();
-        List<Object[]> courses = hcdao.findCoursesByDateWithNextCourseSessions(d); 
+        List<Object[]> courses;
+        courses = hcdao.findCoursesByCritariaWithNextCourseSessions(titleKeyword, d, l);
         return courses;
     }
 }
