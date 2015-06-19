@@ -5,10 +5,16 @@
  */
 package fr.utbm.projetlo54.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  *
  * @author java
  */
+@Entity
 public class Location {
  
     private int Id;
@@ -26,6 +32,8 @@ public class Location {
     /**
      * @return the Id
      */
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     public int getId() {
         return this.Id;
     }
