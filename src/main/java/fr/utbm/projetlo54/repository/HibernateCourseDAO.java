@@ -6,10 +6,12 @@
 package fr.utbm.projetlo54.repository;
 
 import fr.utbm.projetlo54.entity.Course;
+import fr.utbm.projetlo54.entity.CourseSession;
 import fr.utbm.projetlo54.entity.Location;
 import fr.utbm.projetlo54.util.HibernateUtil;
 import java.util.Date;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -223,58 +225,29 @@ public class HibernateCourseDAO
 
     
     /**
-     * trouve tous les sessions des cours qui commencent après aujourd'hui
-     * @return les courses sessions
+     * Finds all the courses with course sessions starting after the current date.
+     * Returns a list of object arrays with each array containing a course and a corresponding course session.
+     * 
+     * @return the list of the courses and course sessions found
      */
-    public List<Object[]> findAllCoursesWithNextCourseSessions(){
-        Session session;
-        List<Object[]> listCourse = null;
-        session = HibernateUtil.getSessionFactory().openSession();
-        try{
-            session.beginTransaction();
-            Query query = session.createQuery("from Course cour join cour.courseSessions cs where cs.startDate > SYSDATE()");
-            listCourse = query.list();
-            session.getTransaction().commit();
-        }
-        catch(HibernateException e){
-            e.printStackTrace();
-            if(session.getTransaction() != null){
-                try{
-                    session.getTransaction().rollback();
-                }
-                catch(HibernateException e2){
-                    e2.printStackTrace();
-                }
-            }
-        }
-        finally{
-            if(session != null){
-                try{
-                    session.close();
-                }
-                catch(Exception e){
-                    System.out.println(e);
-                }
-            }
-        }
-        return listCourse;
-    }
-            
-    
-    /**
-     * retourne les cours avec ses sessions associés qui contiennent le mot clé et qui commence après la date du jour
-     * @param keyword le mot clé que doit contenir le titre des cours retournés
-     * @return les cours
-     */
-    public List<Object[]> findCoursesByKeyWordWithNewtCourseSessions(String keyword){
+    public List<Object[]> findAllCoursesWithNextCourseSessions()
+    {
         Session session;
         List<Object[]> listCourses = null;
         session = HibernateUtil.getSessionFactory().openSession();
         try{
             session.beginTransaction();
-            Query query = session.createQuery("from Course cour join cour.courseSessions cs where cs.startDate > SYSDATE() and cour.title like :titre");
-            query.setParameter("titre", "%" + keyword + "%");
+            Query query = session.createQuery("from Course cour join cour.courseSessions cs where cs.startDate > SYSDATE() order by cour.id");
             listCourses = query.list();
+            // Loads the city of each course session location
+            for (Object[] o : listCourses)
+            {
+                if (o[1] != null)
+                {
+                    CourseSession cs = (CourseSession) o[1];
+                    Hibernate.initialize(cs.getLocation().getCity());
+                }
+            }
             session.getTransaction().commit();
         }
         catch(HibernateException e){
@@ -300,12 +273,69 @@ public class HibernateCourseDAO
         }
         return listCourses;
     }
-        
-    // TODO: List<Object[]> findCoursesByDateWithNextCourseSessions(Date d)
-        // use an HQL join between Course and CourseSession
-        // return only the course sessions with start date <= d <= end date
-        // return only the course sessions starting after actual date (d will be >= actual date)
-    public List<Object[]> findCoursesByDateWithNextCourseSessions(Date d){
+            
+    
+    /**
+     * Finds all the courses containing a keyword in their title with course sessions starting after the current date.
+     * Returns a list of object arrays with each array containing a course and a corresponding course session.
+     * 
+     * @param keyword the keyword to find in the course titles
+     * @return the list of the courses and course sessions found
+     */
+    public List<Object[]> findCoursesByKeyWordWithNewtCourseSessions(String keyword)
+    {
+        Session session;
+        List<Object[]> listCourses = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            Query query = session.createQuery("from Course cour join cour.courseSessions cs where cs.startDate > SYSDATE() and cour.title like :title");
+            query.setParameter("title", "%" + keyword + "%");
+            listCourses = query.list();
+            // Loads the city of each course session location
+            for (Object[] o : listCourses)
+            {
+                if (o[1] != null)
+                {
+                    CourseSession cs = (CourseSession) o[1];
+                    Hibernate.initialize(cs.getLocation().getCity());
+                }
+            }
+            session.getTransaction().commit();
+        }
+        catch(HibernateException e){
+            e.printStackTrace();
+            if(session.getTransaction() != null){
+                try{
+                    session.getTransaction().rollback();
+                }
+                catch(HibernateException e2){
+                    e2.printStackTrace();
+                }
+            }
+        }
+        finally{
+            if(session != null){
+                try{
+                    session.close();
+                }
+                catch(Exception e){
+                    System.out.println(e);
+                }
+            }
+        }
+        return listCourses;
+    }
+    
+    /**
+     * Finds all the courses with course sessions starting before and ending after a specified date, and starting after the current date.
+     * Returns a list of object arrays with each array containing a course and a corresponding course session.
+     * 
+     * @param d the date that must be between the start date and end date of the course session
+     * @return the list of the courses and course sessions found
+     */
+    public List<Object[]> findCoursesByDateWithNextCourseSessions(Date d)
+    {
         Session session;
         List<Object[]> listCourses = null;
         session = HibernateUtil.getSessionFactory().openSession();
@@ -314,6 +344,15 @@ public class HibernateCourseDAO
             Query query = session.createQuery("from Course cour join cour.courseSessions cs where cs.startDate >= SYSDATE() and cs.startDate <= :date and cs.endDate >= :date");
             query.setParameter("date", d);
             listCourses = query.list();
+            // Loads the city of each course session location
+            for (Object[] o : listCourses)
+            {
+                if (o[1] != null)
+                {
+                    CourseSession cs = (CourseSession) o[1];
+                    Hibernate.initialize(cs.getLocation().getCity());
+                }
+            }
             session.getTransaction().commit();
         }
         catch(HibernateException e){
@@ -341,11 +380,14 @@ public class HibernateCourseDAO
     }
     
     /**
-     * retourne les cours avec ses sessions associées commencant après la date du jour et sur le site demandé
-     * @param l la location demandée
-     * @return les cours avec les sessions associées
+     * Finds all the courses with course sessions that take place in the specified location and starting after the current date.
+     * Returns a list of object arrays with each array containing a course and a corresponding course session.
+     * 
+     * @param l the location in which the course sessions must take place
+     * @return the list of the courses and course sessions found
      */
-    public List<Object[]> findCoursesByLocationWithNextCourseSessions(Location l){
+    public List<Object[]> findCoursesByLocationWithNextCourseSessions(Location l)
+    {
         Session session;
         List<Object[]> listCourses = null;
         session = HibernateUtil.getSessionFactory().openSession();
@@ -355,6 +397,15 @@ public class HibernateCourseDAO
             Query query = session.createQuery("from Course cour join cour.courseSessions cs join cs.location loc where cs.startDate >= SYSDATE() and loc.Id = ?");
             query.setParameter(0, l.getId());
             listCourses = query.list();
+            // Loads the city of each course session location
+            for (Object[] o : listCourses)
+            {
+                if (o[1] != null)
+                {
+                    CourseSession cs = (CourseSession) o[1];
+                    Hibernate.initialize(cs.getLocation().getCity());
+                }
+            }
             session.getTransaction().commit();
         }
         catch(HibernateException e){
@@ -382,24 +433,59 @@ public class HibernateCourseDAO
     }
     
     /**
-     * etourne les cours avec ses sessions associées commencant après la date du jour, sur le site demandé et entre la date demandée
-     * @param titleKeyword le mot clé
-     * @param d la date 
-     * @param l la location du cours
-     * @return une liste d'un tableau d'objet
+     * Finds all the courses with course sessions corresponding to the specified criteria and starting after the current date.
+     * Returns a list of object arrays with each array containing a course and a corresponding course session.
+     * A null parameter is ignored.
+     * 
+     * @param titleKeyword the keyword to find in the course titles
+     * @param d the date that must be between the start date and end date of the course session
+     * @param l the location in which the course sessions must take place
+     * @return the list of the courses and course sessions found
      */
-    public List<Object[]> findCoursesByCritariaWithNextCourseSessions(String titleKeyword, Date d, Location l){
+    public List<Object[]> findCoursesByCritariaWithNextCourseSessions(String titleKeyword, Date d, Location l)
+    {
         Session session;
         List<Object[]> listCourses = null;
         session = HibernateUtil.getSessionFactory().openSession();
         try{
             session.beginTransaction();
-            Query query = session.createQuery("from Course cour join cour.courseSessions cs join cs.location loc where cs.startDate >= SYSDATE() and cs.startDate <= ? and cs.endDate >= ? and loc.Id = ? and cour.title like ?");
-            query.setParameter(0, d);
-            query.setParameter(1, d);
-            query.setParameter(2, l.getId());
-            query.setParameter(3, titleKeyword);
+            // Creates and executes the query
+            String queryString = "from Course cour join cour.courseSessions cs join cs.location loc where cs.startDate >= SYSDATE()";
+            if (titleKeyword != null)
+            {
+                queryString += " and cour.title like :keyword";
+            }
+            if (d != null)
+            {
+                queryString += " and cs.startDate <= :date and cs.endDate >= :date";
+            }
+            if (l != null)
+            {
+                queryString += " and loc.Id = :loc";
+            }
+            Query query = session.createQuery(queryString);
+            if (titleKeyword != null)
+            {
+                query.setParameter("keyword", "%" + titleKeyword + "%");
+            }
+            if (d != null)
+            {
+                query.setParameter("date", d);
+            }
+            if (l != null)
+            {
+                query.setParameter("loc", l.getId());
+            }
             listCourses = query.list();
+            // Loads the city of each course session location
+            for (Object[] o : listCourses)
+            {
+                if (o[1] != null)
+                {
+                    CourseSession cs = (CourseSession) o[1];
+                    Hibernate.initialize(cs.getLocation().getCity());
+                }
+            }
             session.getTransaction().commit();
         }
         catch(HibernateException e){

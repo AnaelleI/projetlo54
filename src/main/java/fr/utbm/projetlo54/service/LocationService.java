@@ -21,4 +21,11 @@ public class LocationService
         List<Location> locations = hldao.findAllLocations();        
         return locations;
     }
+    
+    public Location getLocation(int lid)
+    {
+        HibernateLocationDAO hldao = new HibernateLocationDAO();
+        Location location = hldao.findLocationById(lid);        
+        return location;
+    }
 }

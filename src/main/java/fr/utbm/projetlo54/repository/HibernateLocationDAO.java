@@ -5,7 +5,6 @@
  */
 package fr.utbm.projetlo54.repository;
 
-import fr.utbm.projetlo54.entity.CourseSession;
 import fr.utbm.projetlo54.entity.Location;
 import fr.utbm.projetlo54.util.HibernateUtil;
 import java.util.List;
