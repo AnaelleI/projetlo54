@@ -90,7 +90,7 @@ public class App {
         Client cl = new Client();
         cl.setFirstName("quentin");
         cl.setLastName("barthelemy");
-        cl.setSessionID(1);
+        //cl.setSessionID(1);
         cl.setEmail("quentin.barthelemy@utbm.fr");
         cl.setPhone("0606060606");
         cl.setAddress("3 rue gaston defferre 90000 Belfort");

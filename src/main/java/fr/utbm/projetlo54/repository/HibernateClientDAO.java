@@ -33,9 +33,9 @@ public class HibernateClientDAO
         try
         {
             session.beginTransaction();
-            session.merge(c);
+            Client newClient = (Client) session.merge(c);
             session.getTransaction().commit();
-            ccode = c.getId();
+            ccode = newClient.getId();
         }
         catch (HibernateException e)
         {
@@ -226,11 +226,12 @@ public class HibernateClientDAO
     }
     
     /**
-     * find the list of the client who are in the course session requested
+     * Finds the list of the clients who are in the course session requested.
+     * 
      * @param csId the id of the course
      * @return the list of client who are in the course session requested
      */
-    public List<Client> findClientdByIdCourseSession(int csId){
+    public List<Client> findClientsdByIdCourseSession(int csId){
         Session session;
         List<Client> clientList = null;
         session = HibernateUtil.getSessionFactory().openSession();
@@ -272,7 +273,8 @@ public class HibernateClientDAO
     }
     
     /**
-     * return a client loaded with his course sesion
+     * Returns a client loaded with his course session and the associated course and location.
+     * 
      * @param cid the id of client
      * @return a client with his course session
      */
@@ -284,7 +286,9 @@ public class HibernateClientDAO
             session.beginTransaction();
             c = (Client) session.get(Client.class, cid);
             if(c != null){
-                Hibernate.initialize(c.getSessionID());
+                Hibernate.initialize(c.getSession());
+                Hibernate.initialize(c.getSession().getLocation());
+                Hibernate.initialize(c.getSession().getCourse());
             }
             session.getTransaction().commit();
         }

@@ -17,20 +17,20 @@ public class Client {
     private String address;
     private String phone;
     private String email;
-    private int sessionID;
+    private CourseSession session;
     
     public void Client(){
         
    }
     
-    public void Client(int id, String lastname, String firstname, String address, String phone, String email, int sessionId){
+    public void Client(int id, String lastname, String firstname, String address, String phone, String email, CourseSession session){
         this.setId(id);
         this.setLastName(lastname);
         this.setFirstName(firstname);
         this.setAddress(address);
         this.setPhone(phone);
         this.setEmail(email);
-        this.setSessionID(sessionId);
+        this.setSession(session);
     }
 
     /**
@@ -122,19 +122,19 @@ public class Client {
     }
 
     /**
-     * @return the sessionID
+     * @return the session
      */
-    public int getSessionID() 
+    public CourseSession getSession() 
     {
-        return this.sessionID;
+        return this.session;
     }
 
     /**
-     * @param sessionID the sessionID to set
+     * @param session the CourseSession to set
      */
-    public void setSessionID(int sessionID) 
+    public void setSession(CourseSession session) 
     {
-        this.sessionID = sessionID;
+        this.session = session;
     }
     
     @Override

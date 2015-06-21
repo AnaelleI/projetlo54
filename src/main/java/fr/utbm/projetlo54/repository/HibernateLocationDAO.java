@@ -32,9 +32,9 @@ public class HibernateLocationDAO
         try
         {
             session.beginTransaction();
-            session.merge(l);
+            Location newL = (Location) session.merge(l);
             session.getTransaction().commit();
-            lid = l.getId();
+            lid = newL.getId();
         }
         catch (HibernateException e)
         {
