@@ -15,13 +15,15 @@ import fr.utbm.projetlo54.repository.HibernateCourseSessionDAO;
 public class CourseSessionService 
 {
     /**
+     * Returns the CourseSession corresponding with the requested id.
+     * Loads its associated location and course too.
      * 
      * @param csid the id of the course session
      * @return a course session
      */
-    public CourseSession getCourseSessionByIdWithLocation(int csid){
+    public CourseSession getCourseSessionById(int csid){
         HibernateCourseSessionDAO hcsdao = new HibernateCourseSessionDAO();
-        CourseSession cs = new CourseSession();
+        CourseSession cs;
         cs = hcsdao.findCourseSessionByIdWithLocationAndCourse(csid);
         return cs;
     }

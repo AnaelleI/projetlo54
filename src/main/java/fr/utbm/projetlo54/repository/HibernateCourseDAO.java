@@ -237,7 +237,7 @@ public class HibernateCourseDAO
         session = HibernateUtil.getSessionFactory().openSession();
         try{
             session.beginTransaction();
-            Query query = session.createQuery("from Course cour join cour.courseSessions cs where cs.startDate > SYSDATE() order by cour.id");
+            Query query = session.createQuery("from Course cour join cour.courseSessions cs where cs.startDate > SYSDATE() order by cour.code");
             listCourses = query.list();
             // Loads the city of each course session location
             for (Object[] o : listCourses)
@@ -442,7 +442,7 @@ public class HibernateCourseDAO
      * @param l the location in which the course sessions must take place
      * @return the list of the courses and course sessions found
      */
-    public List<Object[]> findCoursesByCritariaWithNextCourseSessions(String titleKeyword, Date d, Location l)
+    public List<Object[]> findCoursesByCriteriaWithNextCourseSessions(String titleKeyword, Date d, Location l)
     {
         Session session;
         List<Object[]> listCourses = null;
@@ -463,6 +463,7 @@ public class HibernateCourseDAO
             {
                 queryString += " and loc.Id = :loc";
             }
+            queryString += " order by cour.code";
             Query query = session.createQuery(queryString);
             if (titleKeyword != null)
             {

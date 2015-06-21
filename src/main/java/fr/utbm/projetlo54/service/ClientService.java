@@ -14,22 +14,26 @@ public class ClientService
 {
       
     /**
-     * return a client cli
+     * Returns the client with the requested id.
+     * 
      * @param cid the id of the client
      * @return the client requested
      */
     public Client getClientByIdWithCourseSession(int cid){
         HibernateClientDAO hcdao = new HibernateClientDAO();
-        Client cli = null;
+        Client cli;
         cli = hcdao.findClientByIdWithCourseSession(cid);
         return cli;
     }
     /**
-     * register a client c
-     * @param c the client we want to register
+     * Registers the client.
+     * 
+     * @param c the client to register
+     * @return the id of the new client or -1 if registration failed
      */
-    public void registerClient(Client c){
+    public int registerClient(Client c){
         HibernateClientDAO hcdao = new HibernateClientDAO();
-        hcdao.addClient(c);
+        int cid = hcdao.addClient(c);
+        return cid;
     }
 }

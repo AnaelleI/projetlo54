@@ -5,10 +5,13 @@
     
 <hibernate-mapping package="fr.utbm.projetlo54.entity">
     <class name="Course" table="COURSE">
-        <id name="Code" column="CODE" type="string" >
+        <id name="code" column="CODE" type="string" >
             <generator class="assigned" />
         </id>
         <property name="title" column="TITLE" type="string" not-null="true"/>
-        
+        <set name="courseSessions">
+            <key column="COURSE_CODE" not-null="true"/>
+            <one-to-many class="CourseSession"/>
+        </set>
     </class>
 </hibernate-mapping>

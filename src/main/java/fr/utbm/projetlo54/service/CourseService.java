@@ -18,7 +18,7 @@ import java.util.List;
 public class CourseService 
 {
     /**
-     * Returns a list of all the courses.
+     * Returns the list of all the courses.
      * 
      * @return the list of courses
      */
@@ -40,7 +40,7 @@ public class CourseService
     {
         HibernateCourseDAO hcdao = new HibernateCourseDAO();
         List<Object[]> courses;
-        courses = hcdao.findCoursesByCritariaWithNextCourseSessions(titleKeyword, d, l);
+        courses = hcdao.findCoursesByCriteriaWithNextCourseSessions(titleKeyword, d, l);
         return courses;
     }
 }
