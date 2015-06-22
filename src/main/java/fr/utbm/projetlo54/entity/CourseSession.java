@@ -108,7 +108,7 @@ public class CourseSession {
     public String toString(){
     return "\nStart Date : "+this.startDate+
     "\nEnd Date : "+this.endDate+
-    "\nCode : "+this.course+
-    "\nLocation : "+this.location;
+    "\nCode : "+this.course.getCode()+
+    "\nLocation : "+this.location.getId();
     }
 }
