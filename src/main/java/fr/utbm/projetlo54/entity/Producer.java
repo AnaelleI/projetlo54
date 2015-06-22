@@ -7,6 +7,7 @@ package fr.utbm.projetlo54.entity;
 
 import javax.jms.*;
 import javax.naming.NamingException;
+import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import org.apache.log4j.BasicConfigurator;
@@ -14,7 +15,7 @@ import org.apache.log4j.BasicConfigurator;
 public class Producer {
 
     private String envoi="";
-    private final String url = "tcp://localhost:61616";
+    private final String url = ActiveMQConnection.DEFAULT_BROKER_URL;
     private String topicTarget ="";
     
     public Producer(String topicName) throws JMSException, NamingException {
