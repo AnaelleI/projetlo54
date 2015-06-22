@@ -6,10 +6,6 @@
 package fr.utbm.projetlo54.entity;
 
 import java.util.Set;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 /**
  *
  * @author Anaëlle Isola
@@ -32,8 +28,6 @@ public class Course {
     /**
      * @return the code
      */
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     public String getCode() {
         return this.code;
     }
